@@ -26,6 +26,8 @@ make
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
+mkdir -p %{buildroot}%{?pkglibdir}%{!?pkglibdir:%{_libdir}/pgsql}/plugins
+ln %{buildroot}%{?pkglibdir}%{!?pkglibdir:%{_libdir}/pgsql}/pgextwlist.so %{buildroot}%{?pkglibdir}%{!?pkglibdir:%{_libdir}/pgsql}/plugins
 
 %clean
 rm -rf %{buildroot}
@@ -34,6 +36,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc README.md
 %{?pkglibdir}%{!?pkglibdir:%{_libdir}/pgsql}/pgextwlist.so
+%{?pkglibdir}%{!?pkglibdir:%{_libdir}/pgsql}/plugins/pgextwlist.so
 
 %changelog
 * Tue Sep 27 2016 Christoph Berg <myon@debian.org> - 1.5-0
